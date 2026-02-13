@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Shifa - Valentine 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffe6eb;
+            --primary-pink: #ff8fa3;
+            --dark-pink: #ff4d6d;
+            --text-color: #590d22;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden; 
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            overflow-y: auto; 
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .container::-webkit-scrollbar { display: none; }
+
+        .page {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 100vh;
+            padding: 45px 0;
+            animation: fadeIn 0.8s ease;
+            flex-shrink: 0;
+        }
+
+        .active { display: flex; } 
+
+        h1, h2 { font-family: 'Fredoka One', cursive; color: var(--dark-pink); margin-bottom: 15px; }
+        p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 20px; color: #800f2f; }
+
+        input {
+            padding: 12px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-pink);
+            width: 80%;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        button {
+            background-color: var(--dark-pink);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        
+        button:active { transform: scale(0.95); }
+
+        .bear-container {
+            height: 150px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .bear-img {
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .photo-card {
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+        }
+        
+        .photo-card:nth-child(2) { transform: rotate(3deg); margin-top: 15px; }
+        .photo-card:nth-child(3) { transform: rotate(-2deg); grid-column: span 2; width: 60%; margin: 0 auto; }
+        
+        .photo-card img {
+            width: 100%;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .error-msg { color: red; font-size: 0.9rem; margin-top: 5px; opacity: 0; transition: opacity 0.3s; }
+
+        .bg-hearts {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 77, 109, 0.3);
+            font-size: 20px;
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(-1000px) rotate(360deg); opacity: 0; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="heartContainer"></div>
+
+    <div class="container">
+        
+        <div id="page1" class="page active">
+            <div class="bear-container">
+                <img src="images/help.gif" class="bear-img" alt="Cute Bear">
+            </div>
+            <h2>Who is my girlfriend's name?</h2>
+            <p style="font-size: 0.9rem; color: #aaa;">(Hint: The most beautiful girl)</p>
+            <input type="text" id="passwordInput" placeholder="Type here...">
+            <button onclick="checkPassword()">Submit</button>
+            <p id="errorText" class="error-msg">Salah weee! Coba lagi 😝</p>
+        </div>
+
+        <div id="page2" class="page">
+            <div class="bear-container">
+                <img src="images/milk-and-mocha.gif" class="bear-img" alt="Milk Mocha Bear"> 
+            </div>
+            <h1>Happy 1st Valentine!</h1>
+            <p>Dear Shifa,<br>Ini adalah Valentine pertama kita, dan aku ingin membuat sesuatu yang spesial buat kamu.</p>
+            <p>You mean the world to me.</p>
+            <button onclick="nextPage(2)">Let's see our memories</button>
+        </div>
+
+        <div id="page3" class="page">
+            <h2>Our Moments</h2>
+            <div class="gallery">
+                <div class="photo-card"><img src="images/first.jpg"></div>
+                <div class="photo-card"><img src="images/25-11-25.jpg"></div>
+                <div class="photo-card"><img src="images/mylove.jpg"></div>
+            </div>
+            <p>"Setiap detik bersamamu adalah memori favoritku."</p>
+            <button onclick="nextPage(3)">Next ❤️</button>
+        </div>
+
+        <div id="page4" class="page">
+            <div class="bear-container">
+                <img src="images/love-sweet.gif" class="bear-img" alt="Love Bear">
+            </div>
+            <h1>I Love You, Shifa</h1>
+            <p>Ke depannya, aku harap kita bisa terus tumbuh bareng, saling support, dan makin sayang.</p>
+            <p style="font-weight: bold;">Doing life with you is my favorite thing.</p>
+            <br>
+            <p style="font-size: 0.8rem;">Created by Dhan | 14 Feb 2026</p>
+        </div>
+
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const errorText = document.getElementById('errorText');
+            if (input.trim().toLowerCase() === 'shifa') {
+                nextPage(1);
+            } else {
+                errorText.style.opacity = '1';
+                const f = document.getElementById('passwordInput');
+                f.style.transform = 'translateX(5px)';
+                setTimeout(() => f.style.transform = 'translateX(-5px)', 100);
+                setTimeout(() => f.style.transform = 'translateX(0)', 200);
+            }
+        }
+
+        function nextPage(n) {
+            document.getElementById(`page${n}`).classList.remove('active');
+            document.getElementById(`page${n + 1}`).classList.add('active');
+            document.querySelector('.container').scrollTo(0, 0);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.getElementById('heartContainer').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 400); 
+    </script>
+</body>
+  </html>
+  
